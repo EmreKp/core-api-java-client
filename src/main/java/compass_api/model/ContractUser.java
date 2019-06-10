@@ -3,6 +3,7 @@ package compass_api.model;
 public class ContractUser {
     private Integer id;
     private String type;
+    private String status;
 
     public Integer getId() {
         return id;
@@ -18,5 +19,13 @@ public class ContractUser {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
