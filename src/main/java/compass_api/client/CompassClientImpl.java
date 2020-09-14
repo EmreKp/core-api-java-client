@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -302,8 +303,19 @@ public class CompassClientImpl implements CompassClient {
     public void createAllotmentPlansRooms(HashMap<String, String> headerMap,
                                           Integer allotmentPlanId,
                                           AllotmentPlanRoomUpdate allotmentPlanRoomUpdate) {
+        this.changeAllotmentPlansRooms(headerMap, allotmentPlanId, allotmentPlanRoomUpdate, HttpMethod.POST);
+    }
 
-        allotmentPlanRoomService.createAllotmentPlansRooms(headerMap, allotmentPlanId, allotmentPlanRoomUpdate);
+    @Override
+    public void changeAllotmentPlansRooms(
+        HashMap<String, String> headerMap,
+        Integer allotmentPlanId,
+        AllotmentPlanRoomUpdate allotmentPlanRoomUpdate,
+        HttpMethod requestType
+    ) {
+        allotmentPlanRoomService.changeAllotmentPlansRooms(
+            headerMap, allotmentPlanId, allotmentPlanRoomUpdate, requestType
+        );
     }
 
     @Override

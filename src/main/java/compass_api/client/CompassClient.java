@@ -7,6 +7,7 @@ import compass_api.model.Booking.ProductBooking;
 
 import java.util.HashMap;
 import java.util.List;
+import org.springframework.http.HttpMethod;
 
 public interface CompassClient {
 
@@ -42,6 +43,13 @@ public interface CompassClient {
             HashMap<String, String> headerMap,
             Integer allotmentPlanId,
             AllotmentPlanRoomUpdate allotmentPlanRoomUpdate
+    );
+
+    void changeAllotmentPlansRooms(
+        HashMap<String, String> headerMap,
+        Integer allotmentPlanId,
+        AllotmentPlanRoomUpdate allotmentPlanRoomUpdate,
+        HttpMethod requestType
     );
 
     ContractInventoryPlan getContractsInventoryPlans(HashMap<String, String> headerMap, Integer contractId);
