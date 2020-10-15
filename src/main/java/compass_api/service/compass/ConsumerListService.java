@@ -1,5 +1,7 @@
 package compass_api.service.compass;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import compass_api.model.ListResponse;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,6 @@ public class ConsumerListService {
 
 		ListResponse response = consumersResponseEntity.getBody();
 
-		return (List<Consumer>) response.getData();
+		return new ObjectMapper().convertValue(response.getData(), new TypeReference<List<Consumer>>(){});
 	}
 }
