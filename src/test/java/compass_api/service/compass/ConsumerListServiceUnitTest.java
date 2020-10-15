@@ -25,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ConsumerListServiceUnitTest {
+
 	@Test
 	public void getConsumers(){
 		ServiceProperties serviceProperties = Mockito.mock(ServiceProperties.class);
