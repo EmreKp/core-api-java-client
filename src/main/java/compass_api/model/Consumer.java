@@ -1,5 +1,8 @@
 package compass_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Consumer {
 	private Integer id;
 	private String slug;
