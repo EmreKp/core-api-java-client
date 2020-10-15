@@ -1,7 +1,5 @@
 package compass_api.service.compass;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import compass_api.model.ListResponse;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +30,11 @@ public class ConsumerListService {
 	public List<Consumer> getConsumersList(Map<String, String> headerMap) {
 		HttpEntity<String> entity = helperEntityService.httpEntity(headerMap);
 
-		ResponseEntity<ListResponse> consumersResponseEntity = restTemplate.exchange(
+		ResponseEntity<ListResponse<Consumer>> consumersResponseEntity = restTemplate.exchange(
 				serviceProperties.getUrl() + "/consumers", HttpMethod.GET,
-				entity, new ParameterizedTypeReference<ListResponse>() {
+				entity, new ParameterizedTypeReference<ListResponse<Consumer>>() {
 				});
 
-		ListResponse response = consumersResponseEntity.getBody();
-
-		return new ObjectMapper().convertValue(response.getData(), new TypeReference<List<Consumer>>(){});
+		return consumersResponseEntity.getBody().getData();
 	}
 }

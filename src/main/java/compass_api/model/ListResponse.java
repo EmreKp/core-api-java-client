@@ -1,12 +1,13 @@
 package compass_api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ListResponse {
+public class ListResponse<T> {
   private Integer page;
   private Integer perPage;
   private Integer total;
-  private List<?> data;
+  private List<T> data;
 
   public Integer getPage() {
     return page;
@@ -32,11 +33,18 @@ public class ListResponse {
     this.total = total;
   }
 
-  public List<?> getData() {
+  public List<T> getData() {
     return data;
   }
 
-  public void setData(List<?> data) {
+  public void setData(List<T> data) {
     this.data = data;
+  }
+
+  public ListResponse<T> addElement(T element) {
+    this.data = new ArrayList<>();
+    this.data.add(element);
+
+    return this;
   }
 }
