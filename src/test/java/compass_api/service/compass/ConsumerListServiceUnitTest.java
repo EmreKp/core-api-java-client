@@ -23,44 +23,47 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ConsumerListServiceUnitTest {
-	@Test
-	public void getConsumers(){
-		ServiceProperties serviceProperties = Mockito.mock(ServiceProperties.class);
-		RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
-		HelperEntityService helperEntityService = Mockito.mock(HelperEntityService.class);
 
-		ConsumerListService consumerListService = new ConsumerListService(
-		    serviceProperties, restTemplate, helperEntityService
-		);
+  @Test
+  public void getConsumers() {
+    ServiceProperties serviceProperties = Mockito.mock(ServiceProperties.class);
+    RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
+    HelperEntityService helperEntityService = Mockito.mock(HelperEntityService.class);
 
-		HashMap<String, String> headerMap = new HashMap<>();
-		headerMap.put("x-consumer-key","1");
-		headerMap.put("x-contract-id", "1");
+    ConsumerListService consumerListService = new ConsumerListService(
+        serviceProperties, restTemplate, helperEntityService
+    );
 
-		Consumer consumer = new Consumer();
-		consumer.setId(1);
-		consumer.setSlug("slug");
-		consumer.setConsumerKey("xxxxx");
+    HashMap<String, String> headerMap = new HashMap<>();
+    headerMap.put("x-consumer-key", "1");
+    headerMap.put("x-contract-id", "1");
 
-		ListResponse<Consumer> response = new ListResponse<Consumer>().addElement(consumer);
+    Consumer consumer = new Consumer();
+    consumer.setId(1);
+    consumer.setSlug("slug");
+    consumer.setConsumerKey("xxxxx");
 
-		ResponseEntity<ListResponse<Consumer>> consumerListResponseEntity = new ResponseEntity<>(
-		    response, HttpStatus.OK
-		);
+    ListResponse<Consumer> response = new ListResponse<Consumer>().addElement(consumer);
 
-		when(restTemplate.exchange(
-		    Matchers.anyString(), any(HttpMethod.class), Matchers.<HttpEntity<?>>any(),
+    ResponseEntity<ListResponse<Consumer>> consumerListResponseEntity = new ResponseEntity<>(
+        response, HttpStatus.OK
+    );
+
+    when(restTemplate.exchange(
+        Matchers.anyString(),
+        any(HttpMethod.class),
+        Matchers.<HttpEntity<?>>any(),
         Matchers.<ParameterizedTypeReference<ListResponse<Consumer>>>any())
     )
         .thenReturn(consumerListResponseEntity);
 
-		consumerListService.getConsumersList(headerMap);
+    consumerListService.getConsumersList(headerMap);
 
-		Mockito.verify(restTemplate, times(1)).exchange(
-				Mockito.anyString(),
-				Mockito.<HttpMethod> any(),
-				Mockito.<HttpEntity<?>> any(),
-				Mockito.<ParameterizedTypeReference<ListResponse<Consumer>>> any()
-		);
-	}
+    Mockito.verify(restTemplate, times(1)).exchange(
+        Mockito.anyString(),
+        Mockito.<HttpMethod>any(),
+        Mockito.<HttpEntity<?>>any(),
+        Mockito.<ParameterizedTypeReference<ListResponse<Consumer>>>any()
+    );
+  }
 }
