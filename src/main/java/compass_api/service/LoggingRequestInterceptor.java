@@ -1,5 +1,6 @@
 package compass_api.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -13,13 +14,18 @@ import java.util.Scanner;
 
 public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor{
 
+    @Value("${compass.log-api-requests:false}")
+    private boolean logRequests;
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
             throws IOException {
 
         ClientHttpResponse response = execution.execute(request, body);
 
-        this.addLog(request, body, response);
+        if (logRequests) {
+            this.addLog(request, body, response);
+        }
 
         return response;
     }
