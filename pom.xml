@@ -76,4 +76,11 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Maven Repository</name>
+            <url>https://maven.pkg.github.com/EmreKp/core-api-java-client</url>
+        </repository>
+    </distributionManagement>
 </project>
